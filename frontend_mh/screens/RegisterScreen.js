@@ -11,8 +11,10 @@ import {
   Image,
   TouchableWithoutFeedback,
   Keyboard,
+  ImageBackground,
 } from "react-native";
 import { COLS } from "./COLS";
+import { vw, vh } from "react-native-expo-viewport-units";
 
 import { FORMAT_navButtonText } from "./FORMAT_navButton";
 import { FORMAT_inputField } from "./FORMAT_inputField";
@@ -21,8 +23,9 @@ const screenWidth = Dimensions.get("screen").width;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLS.C_BG,
+    alignSelf: "center",
     justifyContent: "center",
+    marginTop: "10%",
   },
   horizontalCheckboxes: {
     flexDirection: "row",
@@ -32,27 +35,17 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderWidth: 3,
-    borderColor: COLS.C6_WHITE_TEXT,
+    borderColor: COLS.C4_DARK_TEXT,
   },
   inputField: {
     alignSelf: "center",
     padding: FORMAT_inputField.F_inputField_padding,
     marginVertical: 5,
     fontSize: 16,
-    backgroundColor: COLS.C_BG,
+    borderColor: "white",
+    borderWidth: 2,
     width: 200,
     height: 50,
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: COLS.C6_WHITE_TEXT,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2,
-    elevation: 5,
     color: COLS.C6_WHITE_TEXT,
   },
   buttonflex: {
@@ -64,7 +57,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   navButton: {
-    backgroundColor: COLS.C_BG,
     width: 80,
     height: 50,
     borderRadius: 5,
@@ -73,62 +65,46 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: COLS.C6_WHITE_TEXT,
     marginBottom: 50,
-    fontSize: 16,
+
     padding: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2,
-    elevation: 5,
+  },
+  buttonText: {
+    color: COLS.C4_DARK_TEXT,
+    fontSize: FORMAT_navButtonText.F_navButtonText_fontSize,
+    fontWeight: "500",
+    fontSize: 16,
   },
   boxForCheckbox: {
     fontSize: 16,
     textAlign: "center",
     width: 53,
     height: 50,
-    backgroundColor: COLS.C_BG,
+
     margin: 10,
     borderRadius: 5,
-    color: COLS.C6_WHITE_TEXT,
+    color: COLS.C4_DARK_TEXT,
     borderWidth: 2,
     borderColor: COLS.C6_WHITE_TEXT,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2,
-    elevation: 5,
-    flexDirection: "row",
   },
   optionText: {
-    color: COLS.C6_WHITE_TEXT,
-    fontWeight: "bold",
+    color: COLS.C4_DARK_TEXT,
+    fontWeight: "500",
     alignSelf: "center",
     fontSize: 16,
   },
   title: {
-    fontWeight: "bold",
-    color: COLS.C6_WHITE_TEXT,
+    fontWeight: "600",
+    color: COLS.C4_DARK_TEXT,
     fontSize: 24,
     alignSelf: "center",
     padding: 15,
   },
   option: {
-    color: COLS.C6_WHITE_TEXT,
-    fontWeight: "bold",
+    color: COLS.C4_DARK_TEXT,
+    fontWeight: "500",
     marginTop: 10,
     marginLeft: 10,
     fontSize: 16,
-  },
-  buttonText: {
-    color: COLS.C6_WHITE_TEXT,
-    fontSize: FORMAT_navButtonText.F_navButtonText_fontSize,
-    fontWeight: "bold",
   },
 });
 
@@ -234,144 +210,155 @@ export default function Registerscreen({ navigation }) {
   }
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        <View style={styles.margin}>
-          <Text style={styles.title}>Create Your Account:</Text>
-          <TextInput
-            style={styles.inputField}
-            onChangeText={firstNameInput}
-            placeholder="First name"
-            placeholderTextColor={COLS.C6_WHITE_TEXT}
-            isRequired
-          />
-          <TextInput
-            style={styles.inputField}
-            placeholder=" Last name"
-            onChangeText={lastNameInput}
-            placeholderTextColor={COLS.C6_WHITE_TEXT}
-          />
-          <View style={styles.horizontalCheckboxes}>
+      <ImageBackground
+        source={require("../assets/images/brooke-lark-wMzx2nBdeng-unsplash.jpg")}
+        style={{
+          zIndex: -1,
+          flex: 1,
+          width: vw(100),
+          height: vh(100),
+          resizeMode: "contain",
+        }}
+      >
+        <View style={styles.container}>
+          <View style={styles.margin}>
+            <Text style={styles.title}>Create Your Account:</Text>
             <TextInput
-              style={styles.boxForCheckbox}
-              placeholder="DD"
-              onChangeText={DOBinput}
-              placeholderTextColor={COLS.C6_WHITE_TEXT}
-              keyboardType="numeric"
-              maxLength={2}
+              style={styles.inputField}
+              onChangeText={firstNameInput}
+              placeholder="First name"
+              placeholderTextColor={COLS.C4_DARK_TEXT}
+              isRequired
             />
             <TextInput
-              style={styles.boxForCheckbox}
-              placeholder="MM"
-              onChangeText={DOBinput2}
-              placeholderTextColor={COLS.C6_WHITE_TEXT}
-              keyboardType="numeric"
-              maxLength={2}
+              style={styles.inputField}
+              placeholder=" Last name"
+              onChangeText={lastNameInput}
+              placeholderTextColor={COLS.C4_DARK_TEXT}
             />
-            <TextInput
-              style={styles.boxForCheckbox}
-              placeholder="YYYY"
-              onChangeText={DOBinput3}
-              placeholderTextColor={COLS.C6_WHITE_TEXT}
-              keyboardType="numeric"
-              maxLength={4}
-            />
+            <View style={styles.horizontalCheckboxes}>
+              <TextInput
+                style={styles.boxForCheckbox}
+                placeholder="DD"
+                onChangeText={DOBinput}
+                placeholderTextColor={COLS.C4_DARK_TEXT}
+                keyboardType="numeric"
+                maxLength={2}
+              />
+              <TextInput
+                style={styles.boxForCheckbox}
+                placeholder="MM"
+                onChangeText={DOBinput2}
+                placeholderTextColor={COLS.C4_DARK_TEXT}
+                keyboardType="numeric"
+                maxLength={2}
+              />
+              <TextInput
+                style={styles.boxForCheckbox}
+                placeholder="YYYY"
+                onChangeText={DOBinput3}
+                placeholderTextColor={COLS.C4_DARK_TEXT}
+                keyboardType="numeric"
+                maxLength={4}
+              />
+            </View>
           </View>
-        </View>
-        <View>
-          <Text style={styles.optionText}>Are you a new mother? </Text>
-          <View style={styles.horizontalCheckboxes}>
-            <CheckBox
-              checkedIcon={
-                <Image
-                  style={styles.tickBox}
-                  source={require("../assets/images/check-box.png")}
+          <View>
+            <Text style={styles.optionText}>Are you a new mother? </Text>
+            <View style={styles.horizontalCheckboxes}>
+              <CheckBox
+                checkedIcon={
+                  <Image
+                    style={styles.tickBox}
+                    source={require("../assets/images/check-box.png")}
+                  />
+                }
+                uncheckedIcon={
+                  <Image
+                    style={styles.tickBox}
+                    source={require("../assets/images/blank-square.png")}
+                  />
+                }
+                checked={mother}
+                onPress={motherInput}
+              />
+            </View>
+            <Text style={styles.title}>Select Gender: </Text>
+            <View style={styles.horizontalCheckboxes}>
+              <View>
+                <Text style={styles.option}>Female </Text>
+                <CheckBox
+                  checkedIcon={
+                    <Image
+                      style={styles.tickBox}
+                      source={require("../assets/images/check-box.png")}
+                    />
+                  }
+                  uncheckedIcon={
+                    <Image
+                      style={styles.tickBox}
+                      source={require("../assets/images/blank-square.png")}
+                    />
+                  }
+                  checked={female}
+                  onPress={femaleHandler}
                 />
-              }
-              uncheckedIcon={
-                <Image
-                  style={styles.tickBox}
-                  source={require("../assets/images/blank-square.png")}
+              </View>
+              <View style={styles.align}>
+                <Text style={styles.option}>Male </Text>
+                <CheckBox
+                  checkedIcon={
+                    <Image
+                      style={styles.tickBox}
+                      source={require("../assets/images/check-box.png")}
+                    />
+                  }
+                  uncheckedIcon={
+                    <Image
+                      style={styles.tickBox}
+                      source={require("../assets/images/blank-square.png")}
+                    />
+                  }
+                  checked={male}
+                  onPress={maleHandler}
                 />
-              }
-              checked={mother}
-              onPress={motherInput}
-            />
-          </View>
-          <Text style={styles.title}>Select Gender: </Text>
-          <View style={styles.horizontalCheckboxes}>
-            <View>
-              <Text style={styles.option}>Female </Text>
-              <CheckBox
-                checkedIcon={
-                  <Image
-                    style={styles.tickBox}
-                    source={require("../assets/images/check-box.png")}
-                  />
-                }
-                uncheckedIcon={
-                  <Image
-                    style={styles.tickBox}
-                    source={require("../assets/images/blank-square.png")}
-                  />
-                }
-                checked={female}
-                onPress={femaleHandler}
-              />
-            </View>
-            <View style={styles.align}>
-              <Text style={styles.option}>Male </Text>
-              <CheckBox
-                checkedIcon={
-                  <Image
-                    style={styles.tickBox}
-                    source={require("../assets/images/check-box.png")}
-                  />
-                }
-                uncheckedIcon={
-                  <Image
-                    style={styles.tickBox}
-                    source={require("../assets/images/blank-square.png")}
-                  />
-                }
-                checked={male}
-                onPress={maleHandler}
-              />
-            </View>
-            <View>
-              <Text style={styles.option}> Other </Text>
-              <CheckBox
-                checkedIcon={
-                  <Image
-                    style={styles.tickBox}
-                    source={require("../assets/images/check-box.png")}
-                  />
-                }
-                uncheckedIcon={
-                  <Image
-                    style={styles.tickBox}
-                    source={require("../assets/images/blank-square.png")}
-                  />
-                }
-                checked={other}
-                onPress={otherHandler}
-              />
+              </View>
+              <View>
+                <Text style={styles.option}> Other </Text>
+                <CheckBox
+                  checkedIcon={
+                    <Image
+                      style={styles.tickBox}
+                      source={require("../assets/images/check-box.png")}
+                    />
+                  }
+                  uncheckedIcon={
+                    <Image
+                      style={styles.tickBox}
+                      source={require("../assets/images/blank-square.png")}
+                    />
+                  }
+                  checked={other}
+                  onPress={otherHandler}
+                />
+              </View>
             </View>
           </View>
+          <View style={styles.buttonflex}>
+            <TouchableOpacity
+              style={styles.navButton}
+              onPress={() => navigation.goBack()}
+            >
+              <Text style={styles.buttonText}>Back</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.navButton} onPress={submitHandler}>
+              <Text onPress={submitHandler} style={styles.buttonText}>
+                Next
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.buttonflex}>
-          <TouchableOpacity
-            style={styles.navButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Text style={styles.buttonText}>Back</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.navButton} onPress={submitHandler}>
-            <Text onPress={submitHandler} style={styles.buttonText}>
-              Next
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ImageBackground>
     </TouchableWithoutFeedback>
   );
 }

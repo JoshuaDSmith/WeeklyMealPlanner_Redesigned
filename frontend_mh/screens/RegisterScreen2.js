@@ -11,20 +11,21 @@ import {
   Alert,
   TouchableWithoutFeedback,
   Keyboard,
+  ImageBackground,
 } from "react-native";
 import { COLS } from "./COLS";
 import { FORMAT_navButtonText } from "./FORMAT_navButton";
+import { vw, vh } from "react-native-expo-viewport-units";
 const screenWidth = Dimensions.get("screen").width;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLS.C_BG,
     justifyContent: "center",
   },
   title: {
-    fontWeight: "bold",
-    color: COLS.C6_WHITE_TEXT,
+    fontWeight: "500",
+    color: COLS.C4_DARK_TEXT,
     fontSize: 24,
     padding: 10,
     alignSelf: "center",
@@ -33,22 +34,13 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
     marginVertical: 5,
-    backgroundColor: COLS.C_BG,
+    color: COLS.C4_DARK_TEXT,
     width: 200,
     alignSelf: "center",
     height: 50,
     borderRadius: 5,
     borderWidth: 2,
     borderColor: COLS.C6_WHITE_TEXT,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2,
-    elevation: 5,
-    color: COLS.C6_WHITE_TEXT,
   },
   buttonFlex: {
     alignSelf: "center",
@@ -59,7 +51,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   buttonText: {
-    backgroundColor: COLS.C_BG,
     width: 80,
     height: 50,
     borderRadius: 5,
@@ -67,19 +58,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderWidth: 2,
     borderColor: COLS.C6_WHITE_TEXT,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2,
-    elevation: 5,
   },
   textStyle: {
-    color: COLS.C6_WHITE_TEXT,
+    color: COLS.C4_DARK_TEXT,
     fontSize: FORMAT_navButtonText.F_navButtonText_fontSize,
-    fontWeight: "bold",
+    fontWeight: "500",
+    fontSize: 16,
   },
 });
 
@@ -114,35 +98,46 @@ export default function Registerscreen2({ navigation, route }) {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Sign Up Details</Text>
-        <TextInput
-          style={styles.inputField}
-          onChangeText={emailChangeHandler}
-          placeholder="Email address"
-          placeholderTextColor="white"
-          keyboardType="email-address"
-        />
-        <TextInput
-          style={styles.inputField}
-          placeholder="Password"
-          autoCompleteType={"password"}
-          secureTextEntry={true}
-          onChangeText={passwordHandler}
-          placeholderTextColor="white"
-        />
-        <View style={styles.buttonFlex}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.buttonText}
-          >
-            <Text style={styles.textStyle}>Back</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={SubmitHandler} style={styles.buttonText}>
-            <Text style={styles.textStyle}>Next</Text>
-          </TouchableOpacity>
+      <ImageBackground
+        source={require("../assets/images/brooke-lark-wMzx2nBdeng-unsplash.jpg")}
+        style={{
+          zIndex: -1,
+          flex: 1,
+          width: vw(100),
+          height: vh(100),
+          resizeMode: "contain",
+        }}
+      >
+        <View style={styles.container}>
+          <Text style={styles.title}>Register Email & Password:</Text>
+          <TextInput
+            style={styles.inputField}
+            onChangeText={emailChangeHandler}
+            placeholder="Email address"
+            placeholderTextColor={COLS.C4_DARK_TEXT}
+            keyboardType="email-address"
+          />
+          <TextInput
+            style={styles.inputField}
+            placeholder="Password"
+            autoCompleteType={"password"}
+            secureTextEntry={true}
+            onChangeText={passwordHandler}
+            placeholderTextColor={COLS.C4_DARK_TEXT}
+          />
+          <View style={styles.buttonFlex}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={styles.buttonText}
+            >
+              <Text style={styles.textStyle}>Back</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={SubmitHandler} style={styles.buttonText}>
+              <Text style={styles.textStyle}>Next</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </ImageBackground>
     </TouchableWithoutFeedback>
   );
 }

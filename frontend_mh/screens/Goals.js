@@ -8,8 +8,10 @@ import {
   Dimensions,
   TouchableWithoutFeedback,
   Keyboard,
+  ImageBackground,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import { vw, vh } from "react-native-expo-viewport-units";
 import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
 
 import { COLS } from "./COLS";
@@ -22,7 +24,7 @@ const iconSize = screenWidth * (1 / 5);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLS.C_BG,
+    marginTop: "15%",
     padding: 20,
   },
   positioning: {
@@ -35,7 +37,6 @@ const styles = StyleSheet.create({
   inputField: {
     padding: FORMAT_inputField.F_inputField_padding,
     marginVertical: FORMAT_inputField.F_inputField_marginVertical,
-    backgroundColor: COLS.C_BG,
     width: FORMAT_inputField.F_inputField_width,
     alignSelf: FORMAT_inputField.F_inputField_alignSelf,
     alignItems: FORMAT_inputField.F_inputField_alignItems,
@@ -43,44 +44,30 @@ const styles = StyleSheet.create({
     borderRadius: FORMAT_inputField.F_inputField_borderRadius,
     borderWidth: 2,
     borderColor: COLS.C6_WHITE_TEXT,
-    color: COLS.C6_WHITE_TEXT,
+    color: COLS.C4_DARK_TEXT,
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2,
-    elevation: 5,
+    fontWeight: "500",
     fontSize: 16,
   },
   text: {
-    color: COLS.C6_WHITE_TEXT,
+    color: COLS.C4_DARK_TEXT,
     textAlign: FORMAT_navButtonText.F_navButtonText_textAlign,
-    fontSize: 13,
-    fontWeight: "bold",
+    fontSize: 14,
+    fontWeight: "500",
   },
   buttonText: {
-    color: COLS.C6_WHITE_TEXT,
+    color: COLS.C4_DARK_TEXT,
     fontSize: FORMAT_navButtonText.F_navButtonText_fontSize,
-    fontWeight: "bold",
+    fontWeight: "500",
     textAlign: "center",
   },
   button: {
-    backgroundColor: COLS.C_BG,
     borderRadius: 5,
     alignSelf: FORMAT_navButton.F_navButton_alignSelf,
     padding: FORMAT_navButton.F_navButton_padding,
     borderWidth: 2,
     borderColor: COLS.C6_WHITE_TEXT,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2,
-    elevation: 5,
+    width: "40%",
   },
   buttonPosition: {
     flexDirection: "row",
@@ -182,112 +169,123 @@ export default function Goals({ navigation }) {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <ScrollView style={styles.container}>
-        <View>
-          <Text
-            style={{
-              color: COLS.C4_DARK_TEXT,
-              fontSize: 16,
-              fontWeight: "900",
-              marginBottom: 10,
-            }}
-          >
-            Tell us about yourself...
-          </Text>
-          <TextInput
-            keyboardType="number-pad"
-            style={styles.inputField}
-            placeholder="Weight (kg)"
-            placeholderTextColor="white"
-            onChangeText={Track}
-            maxLength={3}
-          ></TextInput>
-          <TextInput
-            keyboardType="number-pad"
-            style={styles.inputField}
-            placeholder="Height (cm)"
-            placeholderTextColor="white"
-            type="number"
-            onChangeText={Tracked}
-            maxLength={3}
-          ></TextInput>
+    <ImageBackground
+      source={require("../assets/images/brooke-lark-wMzx2nBdeng-unsplash.jpg")}
+      style={{
+        zIndex: -1,
+        flex: 1,
+        width: vw(100),
+        height: vh(100),
+        resizeMode: "contain",
+      }}
+    >
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <ScrollView style={styles.container}>
           <View>
-            <Text style={styles.goals}>...and what are your Goals?</Text>
-          </View>
-          <View style={styles.firstRowIcons}>
-            <View style={styles.positioning}>
-              <TouchableOpacity onPress={fatHandler}>
-                <MaterialCommunityIcons
-                  name="fire"
-                  size={iconSize}
-                  color={fatLoss ? COLS.C_RED : COLS.C6_WHITE_TEXT}
-                />
-                <Text style={styles.text}>Fat Loss</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.positioning}>
-              <TouchableOpacity onPress={muscleHandler}>
-                <FontAwesome5
-                  name="weight-hanging"
-                  size={iconSize * 0.9}
-                  color={muscle ? COLS.C_RED : COLS.C6_WHITE_TEXT}
-                  style={{ left: "10%", marginBottom: "10%" }}
-                />
-                <Text style={styles.text}>Gaining Muscle</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.positioning}>
-              <TouchableOpacity onPress={dietHandler}>
-                <MaterialCommunityIcons
-                  name="food-croissant"
-                  size={iconSize}
-                  color={diet ? COLS.C_RED : COLS.C6_WHITE_TEXT}
-                />
-                <Text style={styles.text}>No Diet</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.secondRowIcons}>
-            <View style={styles.secondLastIcon}>
-              <View style={styles.positioning}>
-                <TouchableOpacity onPress={timeHandler}>
-                  <MaterialCommunityIcons
-                    name="clock"
-                    size={iconSize}
-                    color={time ? COLS.C_RED : COLS.C6_WHITE_TEXT}
-                  />
-                  <Text style={styles.text}>Saving Time</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={styles.lastIcon}>
-              <View style={styles.positioning}>
-                <TouchableOpacity onPress={cookHandler}>
-                  <MaterialCommunityIcons
-                    name="chef-hat"
-                    size={iconSize}
-                    style={{ right: "18%" }}
-                    color={cook ? COLS.C_RED : COLS.C6_WHITE_TEXT}
-                  />
-                  <Text style={styles.text}>Learning to Cook</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-          <View style={styles.buttonPosition}>
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={styles.button}
+            <Text
+              style={{
+                color: COLS.C4_DARK_TEXT,
+                fontSize: 16,
+                fontWeight: "900",
+                marginBottom: 10,
+              }}
             >
-              <Text style={styles.buttonText}>Back</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-              <Text style={styles.buttonText}>Next</Text>
-            </TouchableOpacity>
+              Tell us about yourself...
+            </Text>
+            <TextInput
+              keyboardType="number-pad"
+              style={styles.inputField}
+              placeholder="Weight (kg)"
+              placeholderTextColor={COLS.C4_DARK_TEXT}
+              onChangeText={Track}
+              maxLength={3}
+            ></TextInput>
+            <TextInput
+              keyboardType="number-pad"
+              style={styles.inputField}
+              placeholder="Height (cm)"
+              placeholderTextColor={COLS.C4_DARK_TEXT}
+              type="number"
+              onChangeText={Tracked}
+              maxLength={3}
+            ></TextInput>
+            <View>
+              <Text style={styles.goals}>...and what are your Goals?</Text>
+            </View>
+            <View style={styles.firstRowIcons}>
+              <View style={styles.positioning}>
+                <TouchableOpacity onPress={fatHandler}>
+                  <MaterialCommunityIcons
+                    name="fire"
+                    size={iconSize}
+                    color={fatLoss ? COLS.C_RED : COLS.C6_WHITE_TEXT}
+                  />
+                  <Text style={styles.text}>Fat Loss</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.positioning}>
+                <TouchableOpacity onPress={muscleHandler}>
+                  <FontAwesome5
+                    name="weight-hanging"
+                    size={iconSize * 0.9}
+                    color={muscle ? COLS.C_RED : COLS.C6_WHITE_TEXT}
+                    style={{ left: "10%", marginBottom: "10%" }}
+                  />
+                  <Text style={styles.text}>Gaining Muscle</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.positioning}>
+                <TouchableOpacity onPress={dietHandler}>
+                  <MaterialCommunityIcons
+                    name="food-croissant"
+                    size={iconSize}
+                    color={diet ? COLS.C_RED : COLS.C6_WHITE_TEXT}
+                  />
+                  <Text style={styles.text}>No Diet</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.secondRowIcons}>
+              <View style={styles.secondLastIcon}>
+                <View style={styles.positioning}>
+                  <TouchableOpacity onPress={timeHandler}>
+                    <MaterialCommunityIcons
+                      name="clock"
+                      size={iconSize}
+                      color={time ? COLS.C_RED : COLS.C6_WHITE_TEXT}
+                    />
+                    <Text style={styles.text}>Saving Time</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={styles.lastIcon}>
+                <View style={styles.positioning}>
+                  <TouchableOpacity onPress={cookHandler}>
+                    <MaterialCommunityIcons
+                      name="chef-hat"
+                      size={iconSize}
+                      style={{ right: "18%" }}
+                      color={cook ? COLS.C_RED : COLS.C6_WHITE_TEXT}
+                    />
+                    <Text style={styles.text}>Learning to Cook</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+            <View style={styles.buttonPosition}>
+              <TouchableOpacity
+                onPress={() => navigation.goBack()}
+                style={styles.button}
+              >
+                <Text style={styles.buttonText}>Back</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+                <Text style={styles.buttonText}>Next</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    </TouchableWithoutFeedback>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </ImageBackground>
   );
 }

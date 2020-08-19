@@ -7,9 +7,10 @@ import {
   ScrollView,
   StyleSheet,
   Dimensions,
+  ImageBackground,
 } from "react-native";
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
-
+import { vw, vh } from "react-native-expo-viewport-units";
 import { AuthContext } from "../App.js";
 import { COLS } from "./COLS";
 const screenWidth = Dimensions.get("window").width;
@@ -17,7 +18,7 @@ const screenWidth = Dimensions.get("window").width;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLS.C_BG,
+
     alignItems: "center",
   },
   row: {
@@ -25,8 +26,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   title: {
-    fontWeight: "bold",
+    fontWeight: "500",
     fontSize: 22,
+    alignSelf: "center",
+    marginBottom: "5%",
   },
   mainTitle: {
     position: "absolute",
@@ -34,7 +37,6 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     width: "80%",
     textAlign: "center",
-    backgroundColor: COLS.C_RED,
     borderRadius: 5,
     fontSize: 24,
     fontWeight: "bold",
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
   mainRecipeInfo: {
     width: "90%",
     alignItems: "flex-start",
-    backgroundColor: "white",
+    backgroundColor: COLS.C6_WHITE_TEXT,
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     paddingLeft: screenWidth * 0.1,
@@ -57,23 +59,23 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingTop: 10,
     bottom: 40,
+    zIndex: 1,
   },
   swipeForMoreBar: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "white",
     width: "90%",
-    paddingLeft: screenWidth * 0.1,
-    paddingRight: screenWidth * 0.1,
+    padding: screenWidth * 0.02,
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
+
     bottom: "10%",
     backgroundColor: "#BCB5C3",
   },
   moreChoicesContainer: {
     flexWrap: "wrap",
     width: screenWidth * 0.95,
-    backgroundColor: COLS.C_BG,
+
     flexDirection: "row",
     justifyContent: "space-around",
     paddingBottom: 70,
@@ -155,52 +157,63 @@ export default function NewRecipe() {
   const [todaysRecipeIndex, setTodaysRecipeIndex] = useState(0);
   const todaysRecipe = recipeList[todaysRecipeIndex];
   return (
-    <View style={styles.container}>
-      <Image source={{ uri: todaysRecipe.url }} style={styles.mainImage} />
+    <ImageBackground
+      source={require("../assets/images/brooke-lark-wMzx2nBdeng-unsplash.jpg")}
+      style={{
+        zIndex: -1,
+        flex: 1,
+        width: vw(100),
+        height: vh(100),
+        resizeMode: "contain",
+      }}
+    >
+      <View style={styles.container}>
+        <Image source={{ uri: todaysRecipe.url }} style={styles.mainImage} />
 
-      <View style={styles.mainRecipeInfo}>
-        <Text style={styles.title}>
-          {todaysRecipe.name.replace(/\s+/g, " ")}
-        </Text>
+        <View style={styles.mainRecipeInfo}>
+          <Text style={styles.title}>
+            {todaysRecipe.name.replace(/\s+/g, " ")}
+          </Text>
 
-        <View style={styles.row}>
           <View style={styles.row}>
-            <MaterialCommunityIcons
-              name="clock"
-              size={15}
-              style={{ left: "-10%", bottom: "-1.5%", color: "#BCB5C3" }}
-            />
-            <Text
-              style={{ fontWeight: "bold" }}
-            >{`${todaysRecipe.cooking_time_mins} minutes`}</Text>
-            <MaterialCommunityIcons
-              name="fire"
-              size={20}
-              style={{ left: "100%", color: "#BCB5C3" }}
-            />
-            <Text
-              style={{ fontWeight: "bold", left: "100%" }}
-            >{`${todaysRecipe.calories} kcal`}</Text>
+            <View style={styles.row}>
+              <MaterialCommunityIcons
+                name="clock"
+                size={15}
+                style={{ left: "-10%", bottom: "-1.5%", color: "#BCB5C3" }}
+              />
+              <Text
+                style={{ fontWeight: "bold" }}
+              >{`${todaysRecipe.cooking_time_mins} minutes`}</Text>
+              <MaterialCommunityIcons
+                name="fire"
+                size={20}
+                style={{ left: "100%", color: "#BCB5C3" }}
+              />
+              <Text
+                style={{ fontWeight: "bold", left: "100%" }}
+              >{`${todaysRecipe.calories} kcal`}</Text>
 
-            <Text style={{ fontWeight: "bold", left: "370%" }}>
-              {todaysRecipe.cooking_difficulty < 2
-                ? "Easy"
-                : todaysRecipe.cooking_difficulty < 4
-                ? "Medium"
-                : "Hard"}
-            </Text>
+              <Text style={{ fontWeight: "bold", left: "370%" }}>
+                {todaysRecipe.cooking_difficulty < 2
+                  ? "Easy"
+                  : todaysRecipe.cooking_difficulty < 4
+                  ? "Medium"
+                  : "Hard"}
+              </Text>
+            </View>
           </View>
         </View>
+        <View style={styles.swipeForMoreBar}>
+          <Text style={{ alignSelf: "center" }}>Scroll for more choices</Text>
+          <AntDesign name="arrowdown" size={32} color="black" />
+        </View>
+        <ScrollView contentContainerStyle={styles.moreChoicesContainer}>
+          {recipeList.map((recipe, index) =>
+            recipeCard(recipe, index, setTodaysRecipeIndex)
+          )}
+        </ScrollView>
       </View>
-      <View style={styles.swipeForMoreBar}>
-        <Text style={{ alignSelf: "center" }}>Scroll for more choices</Text>
-        <AntDesign name="arrowdown" size={32} color="black" />
-      </View>
-      <ScrollView contentContainerStyle={styles.moreChoicesContainer}>
-        {recipeList.map((recipe, index) =>
-          recipeCard(recipe, index, setTodaysRecipeIndex)
-        )}
-      </ScrollView>
-    </View>
+    </ImageBackground>
   );
 }

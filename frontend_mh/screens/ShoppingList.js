@@ -15,7 +15,6 @@ const screenWidth = Dimensions.get("window").width;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLS.C_BG,
   },
   formatting: {
     marginBottom: 20,
@@ -23,7 +22,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     backgroundColor: "#BCB5C3",
     width: screenWidth * 0.95,
-    opacity: 2,
   },
 });
 

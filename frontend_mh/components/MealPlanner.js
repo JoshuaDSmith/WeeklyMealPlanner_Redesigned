@@ -694,8 +694,8 @@ const App = () => {
         </View>
       </Modal>
       <ImageBackground
-        source={require("../assets/images/aesthetic.jpg")}
-        style={{ width: "112%", height: "100%", opacity: 0.9 }}
+        source={require("../assets/images/pineapple.jpg")}
+        style={{ width: "100%", height: "100%", opacity: 0.9 }}
       >
         <FlatList
           data={data}

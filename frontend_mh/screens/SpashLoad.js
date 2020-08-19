@@ -16,13 +16,7 @@ const styles = StyleSheet.create({
     height: screenWidth * 0.8,
     width: screenWidth * 0.8,
   },
-  circle: {
-    width: 200,
-    height: 200,
-    borderRadius: 200,
-    padding: 20,
-    backgroundColor: COLS.C_LOGO_BG,
-  },
+
   textRect: {
     backgroundColor: COLS.C5_LIGHT_TEXT,
     width: "50%",
@@ -41,7 +35,7 @@ export default function SplashLoad() {
       <View style={styles.logoCircle}>
         <Image
           style={styles.mealThingsLogo}
-          source={require("../assets/images/newLogo.png")}
+          source={require("../assets/images/NewLogo1.png")}
         />
       </View>
       <View style={styles.textRect}>

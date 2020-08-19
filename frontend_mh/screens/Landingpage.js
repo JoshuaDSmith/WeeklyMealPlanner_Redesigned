@@ -6,8 +6,10 @@ import {
   TouchableOpacity,
   AsyncStorage,
   Image,
+  ImageBackground,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import { vw, vh } from "react-native-expo-viewport-units";
 
 import { AuthContext } from "../App.js";
 import { AWS_PATH } from "../config";
@@ -19,7 +21,6 @@ const MIN_NUM_RECIPIES = 6;
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: COLS.C_BG,
     flex: 1,
     padding: 10,
   },
@@ -31,44 +32,51 @@ const styles = StyleSheet.create({
   },
   flex: {
     flexDirection: "row",
+    margin: 20,
   },
   imageButton: {
     width: 150,
     height: 150,
-    backgroundColor: COLS.C_BG,
+    display: "flex",
+    flexDirection: "column",
     margin: 15,
     alignSelf: "center",
     alignItems: "center",
+    borderTopLeftRadius: 13,
   },
   todaysMeal: {
-    width: "100%",
+    width: "90%",
     padding: 7,
-    backgroundColor: "#BCB5C3",
+    borderWidth: 2,
+    borderColor: COLS.C6_WHITE_TEXT,
     justifyContent: "flex-end",
     alignSelf: "center",
     alignItems: "center",
-    marginTop: 15,
-    borderRadius: 5,
-  },
-  images: {
-    width: "110%",
-    height: "110%",
-    borderRadius: 10,
-    opacity: 0.7,
+    marginTop: 50,
+    borderRadius: 8,
   },
   buttonText: {
-    color: COLS.C6_WHITE_TEXT,
+    color: COLS.C4_DARK_TEXT,
     textAlign: "center",
     fontSize: FORMAT_navButtonText.F_navButtonText_fontSize,
     fontWeight: "bold",
     fontSize: 18,
   },
+  images: {
+    width: "110%",
+    height: "110%",
+    opacity: 0.7,
+    borderTopLeftRadius: 30,
+  },
+
   pictureButtonText: {
-    color: "white",
-    fontWeight: "bold",
+    color: COLS.C4_DARK_TEXT,
+    fontWeight: "500",
     fontSize: 18,
-    alignSelf: "flex-start",
-    bottom: "20%",
+    backgroundColor: COLS.C6_WHITE_TEXT,
+    width: "110%",
+    padding: 8,
+    borderBottomRightRadius: 30,
   },
 });
 
@@ -338,84 +346,95 @@ export default function LandingPage({ navigation }) {
   }
 
   return (
-    <ScrollView
-      style={styles.background}
-      contentContainerStyle={{ alignItems: "center" }}
+    <ImageBackground
+      source={require("../assets/images/brooke-lark-wMzx2nBdeng-unsplash.jpg")}
+      style={{
+        zIndex: -1,
+        flex: 1,
+        width: vw(100),
+        height: vh(100),
+        resizeMode: "contain",
+      }}
     >
-      <View style={styles.flex}>
+      <ScrollView
+        style={styles.background}
+        contentContainerStyle={{ alignItems: "center" }}
+      >
+        <View style={styles.flex}>
+          <TouchableOpacity
+            style={styles.imageButton}
+            onPress={() => navigation.navigate("ShoppingList")}
+          >
+            <Image
+              style={styles.images}
+              source={require("../assets/images/tapas.jpg")}
+            ></Image>
+            <Text style={styles.pictureButtonText}>Shopping List</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.imageButton}
+            onPress={() => navigation.navigate("TodaysRecipe")}
+          >
+            <Image
+              style={styles.images}
+              source={require("../assets/images/Chilli.jpg")}
+            ></Image>
+            <Text style={styles.pictureButtonText}>Today's Recipe</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.flex}>
+          <TouchableOpacity
+            style={styles.imageButton}
+            onPress={() => navigation.navigate("NewRecipe")}
+          >
+            <Image
+              style={styles.images}
+              source={require("../assets/images/Brocoli.jpg")}
+            ></Image>
+            <Text style={styles.pictureButtonText}>Random Recipe</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.imageButton}
+            onPress={() => navigation.navigate("Mealplanner")}
+          >
+            <Image
+              style={styles.images}
+              source={require("../assets/images/Vegplate.jpg")}
+            ></Image>
+            <Text style={styles.pictureButtonText}>Meal Planner</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.flex}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Goals")}
+            style={styles.imageButton}
+          >
+            <Image
+              style={styles.images}
+              source={require("../assets/images/Orange.jpg")}
+            ></Image>
+            <Text style={styles.pictureButtonText}>Goals & Diet</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.imageButton}
+            onPress={() => {
+              logOut();
+            }}
+          >
+            <Image
+              style={styles.images}
+              source={require("../assets/images/Pancakes.jpg")}
+            ></Image>
+            <Text style={styles.pictureButtonText}>Logout</Text>
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity
-          style={styles.imageButton}
-          onPress={() => navigation.navigate("ShoppingList")}
-        >
-          <Image
-            style={styles.images}
-            source={require("../assets/images/tapas.jpg")}
-          ></Image>
-          <Text style={styles.pictureButtonText}>Shopping List</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.imageButton}
+          style={styles.todaysMeal}
           onPress={() => navigation.navigate("TodaysRecipe")}
         >
-          <Image
-            style={styles.images}
-            source={require("../assets/images/Chilli.jpg")}
-          ></Image>
-          <Text style={styles.pictureButtonText}>Today's Recipe</Text>
+          <Text style={styles.buttonText}>Today's Meal</Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.flex}>
-        <TouchableOpacity
-          style={styles.imageButton}
-          onPress={() => navigation.navigate("NewRecipe")}
-        >
-          <Image
-            style={styles.images}
-            source={require("../assets/images/Brocoli.jpg")}
-          ></Image>
-          <Text style={styles.pictureButtonText}>Random Recipe</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.imageButton}
-          onPress={() => navigation.navigate("Mealplanner")}
-        >
-          <Image
-            style={styles.images}
-            source={require("../assets/images/Vegplate.jpg")}
-          ></Image>
-          <Text style={styles.pictureButtonText}>Weekly Meal plan</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.flex}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Goals")}
-          style={styles.imageButton}
-        >
-          <Image
-            style={styles.images}
-            source={require("../assets/images/Orange.jpg")}
-          ></Image>
-          <Text style={styles.pictureButtonText}>Goals & Diet</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.imageButton}
-          onPress={() => {
-            logOut();
-          }}
-        >
-          <Image
-            style={styles.images}
-            source={require("../assets/images/Pancakes.jpg")}
-          ></Image>
-          <Text style={styles.pictureButtonText}>Logout</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity
-        style={styles.todaysMeal}
-        onPress={() => navigation.navigate("TodaysRecipe")}
-      >
-        <Text style={styles.buttonText}>Today's Meal</Text>
-      </TouchableOpacity>
-    </ScrollView>
+      </ScrollView>
+    </ImageBackground>
   );
 }

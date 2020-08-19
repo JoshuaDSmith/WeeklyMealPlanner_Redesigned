@@ -1,14 +1,21 @@
 import React, { useState, Fragment } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Switch } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Switch,
+  ImageBackground,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-
+import { vw, vh } from "react-native-expo-viewport-units";
 import { COLS } from "../../styles/COLS";
-import { FORMAT_containers } from "../../styles/FORMAT_containers";
+import { FORMAT_containers } from "../../screens/FORMAT_containers";
 import {
   FORMAT_navButton,
   FORMAT_navButtonText,
-} from "../../styles/FORMAT_navButton";
-import { FORMAT_text, FORMAT_fonts } from "../../styles/FORMAT_text";
+} from "../../screens/FORMAT_navButton";
+import { FORMAT_text, FORMAT_fonts } from "../../screens/FORMAT_text";
 
 const initialState = [
   { id: "celery", name: "Celery", allergic: false },
@@ -29,15 +36,12 @@ const initialState = [
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: COLS.C_BG,
     flex: 1,
   },
   container: {
-    backgroundColor: COLS.C_BG,
     padding: 20,
     alignItems: FORMAT_containers.F_container_alignItems,
     justifyContent: FORMAT_containers.F_container_justifyContent,
-    backgroundColor: COLS.C_BG,
   },
   position: {
     justifyContent: "center",
@@ -46,15 +50,15 @@ const styles = StyleSheet.create({
     alignSelf: FORMAT_text.F_text_alignSelf,
     marginBottom: FORMAT_text.F_text_marginBottom,
     fontWeight: FORMAT_fonts.F_font_fontWeight,
-    color: COLS.C6_WHITE_TEXT,
+    color: COLS.C4_DARK_TEXT,
     fontSize: FORMAT_navButtonText.F_navButtonText_fontSize,
-    fontWeight: "bold",
+    fontWeight: "500",
   },
   heading: {
     color: COLS.C6_WHITE_TEXT,
     textAlign: FORMAT_navButtonText.F_navButtonText_textAlign,
     fontSize: 28,
-    fontWeight: "bold",
+    fontWeight: "500",
     marginTop: 20,
     marginBottom: 60,
   },
@@ -64,28 +68,19 @@ const styles = StyleSheet.create({
     bottom: "3.7%",
   },
   buttonText: {
-    color: COLS.C6_WHITE_TEXT,
+    color: COLS.C4_DARK_TEXT,
     fontSize: FORMAT_navButtonText.F_navButtonText_fontSize,
-    fontWeight: "bold",
+    fontWeight: "500",
     textAlign: "center",
   },
   buttons: {
     alignSelf: FORMAT_navButton.F_navButton_alignSelf,
     padding: FORMAT_navButton.F_navButton_padding,
-    backgroundColor: COLS.C_BG,
+    width: "40%",
     borderRadius: FORMAT_navButton.F_navButton_borderRadius,
     margin: 20,
     borderWidth: 2,
     borderColor: COLS.C6_WHITE_TEXT,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-      color: COLS.C6_WHITE_TEXT,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2,
-    elevation: 5,
   },
   buttonPosition: {
     flexDirection: "row",
@@ -113,33 +108,43 @@ export default function Allergies({ onBackClick, onSubmit }) {
   }
 
   return (
-    <ScrollView style={styles.background}>
-      <View style={styles.container}>
-        <Text style={styles.heading}> Allergies</Text>
-        <View style={styles.position}>
-          {allergens.map((item, index) => (
-            <Fragment key={item.id}>
-              <Text style={styles.text}> {item.name}</Text>
-              <Switch
-                style={styles.switch}
-                trackColor={{ false: "#767577", true: "#FB4B3D" }}
-                thumbColor="#F4F3F4"
-                ios_backgroundColor="#3E3E3E"
-                onValueChange={() => toggleAllergen(index)}
-                value={item.allergic}
-              />
-            </Fragment>
-          ))}
+    <ImageBackground
+      source={require("../../assets/images/brooke-lark-wMzx2nBdeng-unsplash.jpg")}
+      style={{
+        zIndex: -1,
+        flex: 1,
+        width: vw(100),
+        height: vh(100),
+        resizeMode: "contain",
+      }}
+    >
+      <ScrollView style={styles.background}>
+        <View style={styles.container}>
+          <Text style={styles.heading}> Any Allergies, Perhaps?</Text>
+          <View style={styles.position}>
+            {allergens.map((item, index) => (
+              <Fragment key={item.id}>
+                <Text style={styles.text}> {item.name}</Text>
+                <Switch
+                  style={styles.switch}
+                  trackColor={{ true: "#57DD39" }}
+                  thumbColor="#F4F3F4"
+                  onValueChange={() => toggleAllergen(index)}
+                  value={item.allergic}
+                />
+              </Fragment>
+            ))}
+          </View>
+          <View style={styles.buttonPosition}>
+            <TouchableOpacity style={styles.buttons} onPress={onBackClick}>
+              <Text style={styles.buttonText}>Back</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttons} onPress={postHandler}>
+              <Text style={styles.buttonText}>Next</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.buttonPosition}>
-          <TouchableOpacity style={styles.buttons} onPress={onBackClick}>
-            <Text style={styles.buttonText}>Back</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttons} onPress={postHandler}>
-            <Text style={styles.buttonText}>Next</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </ImageBackground>
   );
 }

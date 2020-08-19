@@ -7,31 +7,31 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  ImageBackground,
 } from "react-native";
-
+import { vw, vh } from "react-native-expo-viewport-units";
 import { COLS } from "./COLS";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLS.C_BG,
     alignItems: "center",
   },
   pageTitle: {
     top: "38.1%",
     position: "absolute",
-    zIndex: 2,
     padding: 5,
     textAlign: "center",
     fontSize: 24,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    fontWeight: "bold",
-    color: "black",
-    fontWeight: "900",
+
+    color: COLS.C4_DARK_TEXT,
+    fontWeight: "500",
     marginTop: 5,
     backgroundColor: "white",
     width: "90%",
+    opacity: 0.7,
   },
   image: {
     width: "100%",
@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderStyle: "solid",
     width: "90%",
-    backgroundColor: "white",
+    backgroundColor: COLS.C6_WHITE_TEXT,
+    opacity: 0.7,
   },
   buttonText: {
     alignSelf: "center",
@@ -55,21 +56,15 @@ const styles = StyleSheet.create({
   },
   methodIngredientsButton: {
     width: "50%",
+    borderBottomColor: COLS.C_RED,
+
+    borderBottomWidth: 2,
   },
   selectedMethodIngredientsButton: {
-    backgroundColor: "#BCB5C3",
     width: "50%",
+    opacity: 0.7,
   },
-  boxTitle: {
-    textAlign: "center",
-    margin: 10,
-    fontSize: 20,
-    color: COLS.C6_WHITE_TEXT,
-    fontWeight: "bold",
-    borderWidth: 2,
-    borderColor: COLS.C6_WHITE_TEXT,
-    height: 30,
-  },
+
   ingredientsAndMethodContainer: {
     width: "100%",
     height: "100%",
@@ -82,6 +77,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
+    opacity: 0.7,
   },
   ingredientsAndMethod: {
     height: "100%",
@@ -93,6 +89,7 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     backgroundColor: COLS.C6_WHITE_TEXT,
     fontSize: 16,
+    opacity: 0.7,
   },
 });
 
@@ -171,34 +168,45 @@ export default function TodaysRecipe() {
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.pageTitle}>
-        {todaysRecipe.name.replace(/\s+/g, " ")}
-      </Text>
-      <Image style={styles.image} source={{ uri: todaysRecipe.url }} />
-      <View style={styles.buttonView}>
-        <TouchableOpacity
-          style={
-            showIngredients
-              ? styles.selectedMethodIngredientsButton
-              : styles.methodIngredientsButton
-          }
-          onPress={() => changeMethodButtonColour()}
-        >
-          <Text style={styles.buttonText}>Method</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={
-            showIngredients
-              ? styles.methodIngredientsButton
-              : styles.selectedMethodIngredientsButton
-          }
-          onPress={() => changeIngredientsButtonColour()}
-        >
-          <Text style={styles.buttonText}>Ingredients</Text>
-        </TouchableOpacity>
+    <ImageBackground
+      source={require("../assets/images/brooke-lark-wMzx2nBdeng-unsplash.jpg")}
+      style={{
+        zIndex: -1,
+        flex: 1,
+        width: vw(100),
+        height: vh(100),
+        resizeMode: "contain",
+      }}
+    >
+      <View style={styles.container}>
+        <Text style={styles.pageTitle}>
+          {todaysRecipe.name.replace(/\s+/g, " ")}
+        </Text>
+        <Image style={styles.image} source={{ uri: todaysRecipe.url }} />
+        <View style={styles.buttonView}>
+          <TouchableOpacity
+            style={
+              showIngredients
+                ? styles.selectedMethodIngredientsButton
+                : styles.methodIngredientsButton
+            }
+            onPress={() => changeMethodButtonColour()}
+          >
+            <Text style={styles.buttonText}>Method</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={
+              showIngredients
+                ? styles.methodIngredientsButton
+                : styles.selectedMethodIngredientsButton
+            }
+            onPress={() => changeIngredientsButtonColour()}
+          >
+            <Text style={styles.buttonText}>Ingredients</Text>
+          </TouchableOpacity>
+        </View>
+        {showIngredients ? ingredientsContainer : methodContainer}
       </View>
-      {showIngredients ? ingredientsContainer : methodContainer}
-    </View>
+    </ImageBackground>
   );
 }

@@ -1,9 +1,16 @@
 import React, { useState, useContext } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Switch } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Switch,
+  ImageBackground,
+} from "react-native";
+import { vw, vh } from "react-native-expo-viewport-units";
 import { AuthContext } from "../App.js";
 import { ScrollView } from "react-native-gesture-handler";
 import { COLS } from "./COLS";
-
 import { FORMAT_containers } from "./FORMAT_containers";
 import { FORMAT_switches } from "./FORMAT_extraComponents";
 import { FORMAT_headings } from "./FORMAT_headings";
@@ -13,7 +20,6 @@ import { FORMAT_navButtonText } from "./FORMAT_navButton";
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: COLS.C_BG,
     flex: 1,
   },
   container: {
@@ -28,9 +34,9 @@ const styles = StyleSheet.create({
     marginTop: FORMAT_text.F_text_marginTop,
     margin: FORMAT_text.F_text_margin,
     fontWeight: FORMAT_fonts.F_font_fontWeight,
-    color: COLS.C6_WHITE_TEXT,
+    color: COLS.C4_DARK_TEXT,
     fontSize: FORMAT_navButtonText.F_navButtonText_fontSize,
-    fontWeight: "bold",
+    fontWeight: "500",
   },
   switch: {
     right: FORMAT_switches.F_switch_right,
@@ -46,42 +52,36 @@ const styles = StyleSheet.create({
     margin: 20,
     borderWidth: 2,
     borderColor: COLS.C6_WHITE_TEXT,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-      color: COLS.C6_WHITE_TEXT,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2,
-    elevation: 5,
+    width: "40%",
   },
   heading: {
     alignSelf: FORMAT_headings.F_heading_alignSelfF_heading_alignSelf,
     left: FORMAT_headings.F_headingMainTitle_left,
     fontSize: FORMAT_headings.F_headingMainTitle_fontSize,
-    fontWeight: FORMAT_headings.F_headingMainTitle_fontWeight,
+    fontWeight: "500",
     bottom: FORMAT_headings.F_headingMainTitle_bottom,
     marginBottom: FORMAT_headings.F_headingMainTitle_marginBottom,
     marginTop: FORMAT_headings.F_headingMainTitle_marginTop,
-    color: COLS.C6_WHITE_TEXT,
+    color: COLS.C4_DARK_TEXT,
   },
   buttontext: {
-    color: COLS.C6_WHITE_TEXT,
+    color: COLS.C4_DARK_TEXT,
     fontSize: FORMAT_navButtonText.F_navButtonText_fontSize,
-    fontWeight: "bold",
+    fontWeight: "500",
     textAlign: "center",
   },
   subheading: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: "500",
+    alignSelf: "flex-start",
+    marginLeft: "3%",
   },
   header: {
     marginTop: 20,
-    color: COLS.C6_WHITE_TEXT,
+    color: COLS.C4_DARK_TEXT,
     textAlign: FORMAT_navButtonText.F_navButtonText_textAlign,
     fontSize: 28,
-    fontWeight: "bold",
+    fontWeight: "500",
   },
 });
 
@@ -194,76 +194,84 @@ export default function Preferences({ navigation, route }) {
   }
 
   return (
-    <ScrollView style={styles.background}>
-      <Text style={styles.header}> Diet Preferences</Text>
-      <View style={styles.container}>
-        <Text style={styles.text}> No Requirement</Text>
-        <Text style={styles.subheading}> I have no dietary Requirements.</Text>
-        <Switch
-          style={styles.switch}
-          trackColor={{ false: COLS.C5_LIGHT_TEXT, true: COLS.C_RED }}
-          thumbColor={COLS.C6_WHITE_TEXT}
-          ios_backgroundColor={COLS.C4_DARK_TEXT}
-          onValueChange={noRequirementHandler}
-          value={noRequirement}
-        />
-        <Text style={styles.text}> Vegetarian</Text>
-        <Text style={styles.subheading}>
-          I do not eat meat, fish nor poultry.
-        </Text>
-        <Switch
-          style={styles.switch}
-          trackColor={{ false: COLS.C5_LIGHT_TEXT, true: COLS.C_RED }}
-          thumbColor={COLS.C6_WHITE_TEXT}
-          ios_backgroundColor={COLS.C4_DARK_TEXT}
-          onValueChange={vegetarianHandler}
-          value={vegetarian}
-        />
-        <Text style={styles.text}> Ovo-Vegetarian </Text>
-        <Text style={styles.subheading}>I do not eat diary foods, meat,</Text>
-        <Text style={styles.subheading}> poultry nor fish.</Text>
-        <Switch
-          style={styles.switch}
-          trackColor={{ false: COLS.C5_LIGHT_TEXT, true: COLS.C_RED }}
-          thumbColor={COLS.C6_WHITE_TEXT}
-          ios_backgroundColor={COLS.C4_DARK_TEXT}
-          onValueChange={ovovegetarianHandler}
-          value={ovovegetarian}
-        />
-        <Text style={styles.text}> Lacto-vegetarian</Text>
-        <Text style={styles.subheading}>I do not eat eggs, meat,</Text>
-        <Text style={styles.subheading}> poultry nor fish.</Text>
-        <Switch
-          style={styles.switch}
-          trackColor={{ false: COLS.C5_LIGHT_TEXT, true: COLS.C_RED }}
-          thumbColor={COLS.C6_WHITE_TEXT}
-          ios_backgroundColor={COLS.C4_DARK_TEXT}
-          onValueChange={lactoHander}
-          value={lactoVegetarian}
-        />
-        <Text style={styles.text}> Vegan</Text>
-        <Text style={styles.subheading}>I do not eat meats, poultry,</Text>
-        <Text style={styles.subheading}>fish nor animal products.</Text>
-        <Switch
-          style={styles.switch}
-          trackColor={{ false: COLS.C5_LIGHT_TEXT, true: COLS.C_RED }}
-          thumbColor={COLS.C6_WHITE_TEXT}
-          ios_backgroundColor={COLS.C4_DARK_TEXT}
-          onValueChange={veganHandler}
-          value={vegan}
-        />
-        <View style={styles.button_Direction}>
-          <TouchableOpacity
-            style={styles.buttons}
-            onPress={() => navigation.goBack()}
-          >
-            <Text style={styles.buttontext}>Back</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttons} onPress={postHandler}>
-            <Text style={styles.buttontext}>Finish</Text>
-          </TouchableOpacity>
+    <ImageBackground
+      source={require("../assets/images/brooke-lark-wMzx2nBdeng-unsplash.jpg")}
+      style={{
+        zIndex: -1,
+        flex: 1,
+        width: vw(100),
+        height: vh(100),
+        resizeMode: "contain",
+      }}
+    >
+      <ScrollView style={styles.background}>
+        <Text style={styles.header}> Diet Preferences</Text>
+        <View style={styles.container}>
+          <Text style={styles.text}> No Requirement</Text>
+          <Text style={styles.subheading}> I'll Eat It All!</Text>
+          <Switch
+            style={styles.switch}
+            trackColor={{ true: "#57DD39" }}
+            thumbColor={COLS.C6_WHITE_TEXT}
+            ios_backgroundColor={COLS.C4_DARK_TEXT}
+            onValueChange={noRequirementHandler}
+            value={noRequirement}
+          />
+          <Text style={styles.text}> Vegetarian</Text>
+          <Text style={styles.subheading}>No to meat & fish.</Text>
+          <Switch
+            style={styles.switch}
+            trackColor={{ true: "#57DD39" }}
+            thumbColor={COLS.C6_WHITE_TEXT}
+            ios_backgroundColor={COLS.C4_DARK_TEXT}
+            onValueChange={vegetarianHandler}
+            value={vegetarian}
+          />
+          <Text style={styles.text}> Ovo-Vegetarian </Text>
+          <Text style={styles.subheading}>No to diary, meat & fish.</Text>
+
+          <Switch
+            style={styles.switch}
+            trackColor={{ true: "#57DD39" }}
+            thumbColor={COLS.C6_WHITE_TEXT}
+            ios_backgroundColor={COLS.C4_DARK_TEXT}
+            onValueChange={ovovegetarianHandler}
+            value={ovovegetarian}
+          />
+          <Text style={styles.text}> Lacto-vegetarian</Text>
+          <Text style={styles.subheading}>No to eggs, meat & fish.</Text>
+
+          <Switch
+            style={styles.switch}
+            trackColor={{ true: "#57DD39" }}
+            thumbColor={COLS.C6_WHITE_TEXT}
+            ios_backgroundColor={COLS.C4_DARK_TEXT}
+            onValueChange={lactoHander}
+            value={lactoVegetarian}
+          />
+          <Text style={styles.text}> Vegan</Text>
+          <Text style={styles.subheading}>All Hail Plant Power!</Text>
+
+          <Switch
+            style={styles.switch}
+            trackColor={{ true: "#57DD39" }}
+            thumbColor={COLS.C6_WHITE_TEXT}
+            onValueChange={veganHandler}
+            value={vegan}
+          />
+          <View style={styles.button_Direction}>
+            <TouchableOpacity
+              style={styles.buttons}
+              onPress={() => navigation.goBack()}
+            >
+              <Text style={styles.buttontext}>Back</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttons} onPress={postHandler}>
+              <Text style={styles.buttontext}>Finish</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </ImageBackground>
   );
 }

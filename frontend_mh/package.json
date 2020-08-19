@@ -36,6 +36,7 @@
     "react-native-drag-flatlist": "^1.0.0",
     "react-native-draggable-flatlist": "^2.3.2",
     "react-native-elements": "^1.2.7",
+    "react-native-expo-viewport-units": "0.0.8",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-material-dropdown": "^0.11.1",
     "react-native-push-notification": "^3.3.1",
